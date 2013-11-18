@@ -597,6 +597,17 @@ void SetupColors(RConfigNode *n)
 	rg.cHilightText	= GetRGB(n,"SelectedText");
 	rg.cText		= GetRGB(n,"WindowText"); //??? MenuText ??
 
+	//TtText
+	//TtWindow
+	//Menu
+	//MenuText
+	//MenuSelected
+	//MenuBar
+	//AppWorkspace
+	//GrayText ----- implement
+	//HotTrackingColor?? sometimes == selected
+	//Scrollbar sometimes ==  3Dhilight
+
 /*
 	rg.c3DFace		= rgb(224,224,160);
 	rg.c3DShadow	= rgb(192,192,64);
