@@ -571,7 +571,7 @@ int RFile::Seek64(s64 offs, u32 wh)
 {
 	if(SeekTr(wh) == -1)
 		return -1;
-	s32 hi = (s32)((offs >> 32) & 0xFFFFFFFF), lo = (s32)(offs & 0xFFFFFFFF);
+	long hi = (u32)((offs >> 32) & 0xFFFFFFFF), lo = (u32)(offs & 0xFFFFFFFF);
 	if((lo = SetFilePointer(fd,lo,&hi,wh)) == -1) { //INVALID_SET_FILE_POINTER) { //== -1
 		if(GetLastError() != NO_ERROR) {
 			return -1;

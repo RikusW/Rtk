@@ -68,17 +68,20 @@ int RGraphics::Start(RWND wnd)
 
 void RGraphics::InitColor()
 {
-	c3DFace    = GetSysColor(COLOR_3DFACE);
-	c3DDShadow = GetSysColor(COLOR_3DDKSHADOW);
-	c3DShadow  = GetSysColor(COLOR_3DSHADOW);
-	c3DLight   = GetSysColor(COLOR_3DLIGHT);
-	c3DHilight = GetSysColor(COLOR_3DHILIGHT);
+	c3DHilight	= GetSysColor(COLOR_3DHILIGHT);
+	c3DLight	= GetSysColor(COLOR_3DLIGHT);
+	c3DFace		= GetSysColor(COLOR_3DFACE);
+	c3DDShadow	= GetSysColor(COLOR_3DDKSHADOW);
+	c3DShadow	= GetSysColor(COLOR_3DSHADOW);
 
-	cBTNText   = GetSysColor(COLOR_BTNTEXT);
-	cHilight = GetSysColor(COLOR_HIGHLIGHT);
-	cWindow    = GetSysColor(COLOR_WINDOW);
-	cHilightText = GetSysColor(COLOR_HIGHLIGHTTEXT);
-	cText      = 0;
+	c3DText		= GetSysColor(COLOR_BTNTEXT);
+	cGrayText	= GetSysColor(COLOR_GRAYTEXT);
+	cScrollbar	= GetSysColor(COLOR_SCROLLBAR);
+
+	cWindow		= GetSysColor(COLOR_WINDOW);
+	cWinText	= GetSysColor(COLOR_WINDOWTEXT);
+	cSelect		= GetSysColor(COLOR_HIGHLIGHT);
+	cSelectText	= GetSysColor(COLOR_HIGHLIGHTTEXT);
 }
 
 void RGraphics::Stop()
@@ -351,17 +354,20 @@ int RGraphics::Start(Display *d, RWND w)
 
 void RGraphics::InitColor()
 {
+	c3DHilight	= rgb(240,240,208);
+	c3DLight	= rgb(224,224,160);
 	c3DFace		= rgb(224,224,160);
 	c3DShadow	= rgb(192,192,64);
 	c3DDShadow	= 0;
-	c3DLight	= rgb(224,224,160);
-	c3DHilight	= rgb(240,240,208);
 
-	cBTNText	= 0;
-	cHilight	= rgb(128,128,0); //Selected
+	c3DText		= 0;
+	cGrayText	= rgb(192,192,64);
+	cScrollbar	= rgb(240,240,208);
+
 	cWindow		= rgb(240,244,200);
-	cHilightText= rgb(255,255,255);
-	cText		= 0;
+	cWinText	= 0;
+	cSelect		= rgb(128,128,0);
+	cSelectText	= rgb(255,255,255);
 }
 
 void RGraphics::Stop()
@@ -559,7 +565,7 @@ COLOR GetRGB(RConfigNode *n, const char *s)
 
 	m = n->GetNode(s);
 	if(!m) {
-		printf("Failed to find color -> %s\n",s);
+//		printf("Failed to find color -> %s\n",s);
 		return 0;
 	}
 
@@ -585,28 +591,33 @@ void SetupColors(RConfigNode *n)
 		return;
 	}
 
+	rg.c3DHilight	= GetRGB(n,"3DHilight");
+	rg.c3DLight		= GetRGB(n,"3DLight");
 	rg.c3DFace		= GetRGB(n,"3DFace");
 	rg.c3DShadow	= GetRGB(n,"3DShadow");
 	rg.c3DDShadow	= GetRGB(n,"3DDkShadow");
-	rg.c3DLight		= GetRGB(n,"3DLight");
-	rg.c3DHilight	= GetRGB(n,"3DHilight");
-	rg.cBTNText		= GetRGB(n,"3DText");
 
-	rg.cHilight		= GetRGB(n,"Selected");
+	rg.c3DText		= GetRGB(n,"3DText");
+	rg.cGrayText	= GetRGB(n,"GrayText");
+	rg.cScrollbar	= GetRGB(n,"Scrollbar");
+
 	rg.cWindow		= GetRGB(n,"Window");
-	rg.cHilightText	= GetRGB(n,"SelectedText");
-	rg.cText		= GetRGB(n,"WindowText"); //??? MenuText ??
+	rg.cWinText		= GetRGB(n,"WindowText");
+	rg.cSelect		= GetRGB(n,"Selected");
+	rg.cSelectText	= GetRGB(n,"SelectedText");
+	
+	//TtText ??
+	//TtWindow??
 
-	//TtText
-	//TtWindow
-	//Menu
-	//MenuText
-	//MenuSelected
+	//later ??
+	//Menu -
+	//MenuText -
+
+	//MenuSelected ??
 	//MenuBar
-	//AppWorkspace
-	//GrayText ----- implement
-	//HotTrackingColor?? sometimes == selected
-	//Scrollbar sometimes ==  3Dhilight
+	//AppWorkspace --MDI background
+	//HotTrackingColor?? sometimes == selected ?? not used ???
+
 
 /*
 	rg.c3DFace		= rgb(224,224,160);
@@ -615,11 +626,11 @@ void SetupColors(RConfigNode *n)
 	rg.c3DLight		= rgb(224,224,160);
 	rg.c3DHilight	= rgb(240,240,208);
 
-	rg.cBTNText		= 0;
-	rg.cHilight		= rgb(128,128,0); //Selected
+	rg.c3DText		= 0;
+	rg.cSelect		= rgb(128,128,0); //Selected
 	rg.cWindow		= rgb(240,244,200);
-	rg.cHilightText	= rgb(255,255,255);
-	rg.cText		= 0;
+	rg.cSelectText	= rgb(255,255,255);
+	rg.cWinText		= 0;
 */
 }
 
@@ -673,7 +684,7 @@ void DrFocus(RControl *rc, RGraphics *g, int left, int top, int right, int botto
 {
 	if(rc->bFocus) {
 		g->SetBk(g->c3DFace); //GGGG
-		g->SetFg(g->cBTNText, 1, PS_DOT); //GGG
+		g->SetFg(g->c3DText, 1, PS_DOT); //GGG
 		g->Rectangle(left,top,right,bottom);
 	}
 }
@@ -834,11 +845,11 @@ void RdMenuButton::Draw(RControl *rc, RGraphics *g)
 	RMenuButton *r =(RMenuButton*)rc;
 
 	if(r->IsHit()) {
-		g->FillRect(g->cHilight,r->left,r->top,r->width,r->height);
-		g->SetTextColor(g->cHilightText,g->cHilight);
+		g->FillRect(g->cSelect,r->left,r->top,r->width,r->height);
+		g->SetTextColor(g->cSelectText,g->cSelect);
 	}else{
 		g->FillRect(g->c3DFace,r->left,r->top,r->width,r->height);
-		g->SetTextColor(g->cText,g->c3DFace);
+		g->SetTextColor(g->cWinText,g->c3DFace);
 	}
 //	g->SetTextColor(g->rgb(0,0,0),g->c3DFace);
 	g->TextOut(r->left+8,r->top+6,r->text,strlen(r->text));
@@ -876,7 +887,7 @@ void RdCheckBox::Draw(RControl *rc, RGraphics *g)
 				r->bottom - 5, 1); //r->bChecked);
 
 	if(r->bChecked) {
-		g->FillRect(g->cText,r->left+10,r->top+10,r->height-19,r->height-19);
+		g->FillRect(g->cWinText,r->left+10,r->top+10,r->height-19,r->height-19);
 	}
 
 	int left = r->left + r->height + 2;
@@ -913,8 +924,8 @@ void RdRadioButton::Draw(RControl *rc, RGraphics *g)
 
 	// The dot
 	if(r->bChecked) {
-		g->SetFg(g->cText);
-		g->SetBg(g->cText);
+		g->SetFg(g->cWinText);
+		g->SetBg(g->cWinText);
 		g->Ellipse(bleft+4,btop+4,bright-4,bbottom-4);
 	}
 
@@ -975,7 +986,7 @@ void RdTextEdit::Draw(RControl *rc, RGraphics *g)
 
 	STextLine *st = te->stext;
 
-	g->SetTextColor(g->cText,g->cWindow);
+	g->SetTextColor(g->cWinText,g->cWindow);
 
 	Rect r;
 	r.top = te->top+2; r.bottom = r.top + 13;
@@ -1015,7 +1026,7 @@ void RdTextEdit::Draw(RControl *rc, RGraphics *g)
 			}
 			g->FillRectI(L, r.top, R - L, r.bottom - r.top + 1);
 #ifdef XLIB
-			g->SetTextColor(g->cText,g->c3DFace);
+			g->SetTextColor(g->cWinText,g->c3DFace);
 #endif
 //-			PatBlt(dc, L, r.top, R - L, r.bottom - r.top + 1, DSTINVERT);
 		}
@@ -1121,10 +1132,10 @@ void RdToolTip::Draw(RControl *rc, RGraphics *g)
 
 	g->FillRect(g->cWindow,0,0,r->width,r->height);
 
-	g->SetTextColor(g->cText,g->cWindow);
+	g->SetTextColor(g->cWinText,g->cWindow);
 	g->TextOut(r->left+8,r->top+4,r->ttext,strlen(r->ttext));
 
-	g->SetFg(g->cText);
+	g->SetFg(g->cWinText);
 	g->Rectangle(0,0,r->right,r->bottom);
 }
 
@@ -1147,6 +1158,7 @@ void RdEditBox::Draw(RControl *rc, RGraphics *g)
 	//dbg g->Line(0,r->top+6,100,r->top+6);
 	
 	if(r->bFocus) {
+		g->SetFg(g->rgb(0,0,0));
 		g->Line(r->left + 8*r->kx+8,r->top+3,r->left + 8*r->kx+8,r->bottom-3); //sz font
 	}
 
@@ -1178,7 +1190,7 @@ void RdRange::Draw(RControl *rc, RGraphics *g)
 	// the RButton
 	int left = r->current - 5 + r->left;
 	int right= r->current + 5 + r->left;
-	g->FillRect(r->IsHit() ? g->rgb(128,128,128) : g->c3DFace,left+2,r->top+2,right-left-1,r->height-2);
+	g->FillRect(r->IsHit() ? g->cScrollbar : g->c3DFace,left+2,r->top+2,right-left-1,r->height-2);
 	DrButton(r,g,left,r->top,right,r->bottom,0);
 }
 
@@ -1208,7 +1220,7 @@ void RdScrollBar::Draw(RControl *rc, RGraphics *g)
 		DrSbButton(r,g,r->left,r->bottom-r->width+1,r->right,r->bottom,0);
 
 		int cx,cy,q; // arrows
-		g->SetFg(g->cText);
+		g->SetFg(g->cWinText);
 		cx = r->left + (r->width/2);
 		cy = r->top + (r->width/2);
 		q = r->width / 5;
@@ -1221,19 +1233,21 @@ void RdScrollBar::Draw(RControl *rc, RGraphics *g)
 		int l = (r->height - 1) - r->width * 2 - r->pmax;
 		int top = r->ppos + r->top + r->width;
 		int bottom = top + l;
-		g->FillRect(r->IsHit() ? g->cWindow : g->c3DFace,r->left+2,top+2,r->width-4,bottom-top-1);
+		g->FillRect(r->IsHit() ? g->cScrollbar : g->c3DFace,r->left+2,top+2,r->width-4,bottom-top-1);
 		DrButton(r,g,r->left,top,r->right,bottom,0);
 
-		g->FillRect(g->c3DFace,r->left,r->top+r->width,r->width,top-(r->top+r->width));
-		g->FillRect(g->c3DFace,r->left,bottom+1,r->width,(r->bottom-r->width)-bottom);
+		//background
+		g->FillRect(g->cScrollbar,r->left,r->top+r->width,r->width,top-(r->top+r->width));
+		g->FillRect(g->cScrollbar,r->left,bottom+1,r->width,(r->bottom-r->width)-bottom);
 
 
 	}else{
+		//buttons on side
 		DrSbButton(r,g,r->left,r->top,r->left+r->height-1,r->bottom,0);
 		DrSbButton(r,g,r->right-r->height+1,r->top,r->right,r->bottom,0);
 
 		int cx,cy,q; //arrows
-		g->SetFg(g->cText);
+		g->SetFg(g->cWinText);
 		cx = r->left + (r->height/2);
 		cy = r->top + (r->height/2);
 		q = r->height / 5;
@@ -1245,11 +1259,12 @@ void RdScrollBar::Draw(RControl *rc, RGraphics *g)
 		int l = (r->width - 1) - r->height * 2 - r->pmax;
 		int left = r->ppos + r->left + r->height;
 		int right= left + l;
-		g->FillRect(r->IsHit() ? g->cWindow : g->c3DFace,left+2,r->top+2,right-left-1,r->height-2);
+		g->FillRect(r->IsHit() ? g->cScrollbar : g->c3DFace,left+2,r->top+2,right-left-1,r->height-2);
 		DrButton(r,g,left,r->top,right,r->bottom,0);
 
-		g->FillRect(g->c3DFace,r->left+r->height,r->top,left-(r->left+r->height),r->height);
-		g->FillRect(g->c3DFace,right+1,r->top,(r->right-r->height)-right,r->height);
+		//background
+		g->FillRect(g->cScrollbar,r->left+r->height,r->top,left-(r->left+r->height),r->height);
+		g->FillRect(g->cScrollbar,right+1,r->top,(r->right-r->height)-right,r->height);
 	}
 }
 
@@ -1276,11 +1291,11 @@ void RdProgressBar::Draw(RControl *rc, RGraphics *g)
 	RProgressBar *r = (RProgressBar*)rc;
 	if(r->align & AL_V) {
 		int h = r->height * r->ppos / r->pmax;
-		g->FillRect(g->cHilight,r->left,r->top,r->width,h);
+		g->FillRect(g->cSelect,r->left,r->top,r->width,h);
 		g->FillRect(g->c3DLight,r->left,r->top + h,r->width,r->height - h);
 	}else{
 		int w = r->width * r->ppos / r->pmax;
-		g->FillRect(g->cHilight,r->left,r->top,w,r->height);
+		g->FillRect(g->cSelect,r->left,r->top,w,r->height);
 		g->FillRect(g->c3DLight,r->left + w,r->top,r->width - w,r->height);
 	}
 

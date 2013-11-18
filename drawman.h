@@ -66,8 +66,8 @@ public:
 	Window win; //XXX
 	Display *display;
 #endif
-	COLOR c3DFace,c3DDShadow,c3DShadow,c3DLight,c3DHilight;
-	COLOR cBTNText,cHilight,cHilightText,cWindow,cText;
+	COLOR c3DFace,c3DDShadow,c3DShadow,c3DLight,c3DHilight,cScrollbar;
+	COLOR c3DText,cGrayText,cSelect,cSelectText,cWindow,cWinText;
 };
 
 #endif // _RGRAPHICS_
