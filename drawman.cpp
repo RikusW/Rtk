@@ -321,8 +321,8 @@ int RGraphics::Start(Display *d, RWND w)
 
 	gc = XCreateGC(display, win, vm, &values);
 
-	XFontStruct *font_info;
-	char *fontname = "8x13";
+//	XFontStruct *font_info;
+	const char *fontname = "8x13";
 //	char *fontname =
 //	"-misc-fixed-medium-r-normal--13-100-100-100-c-70-iso8859-1";
 //	"-misc-fixed-bold-r-normal--13-100-100-100-c-70-iso8859-1";
@@ -330,7 +330,7 @@ int RGraphics::Start(Display *d, RWND w)
 
 
 //	if((font_info=XLoadQueryFont(display,fontname)) == NULL) { segfaults... ?!!
-	if((font = XLoadFont(display,fontname)) == NULL) {
+	if((font = XLoadFont(display,fontname)) == 0) {
 		printf("stderr, basicwin: cannot open 8x13 font\n");
 		exit(-1);
 	}
@@ -358,7 +358,7 @@ void RGraphics::InitColor()
 	c3DHilight	= rgb(240,240,208);
 
 	cBTNText	= 0;
-	cHilight	= rgb(128,128,0);
+	cHilight	= rgb(128,128,0); //Selected
 	cWindow		= rgb(240,244,200);
 	cHilightText= rgb(255,255,255);
 	cText		= 0;
@@ -548,6 +548,71 @@ void RGraphics::StartDraw(RControl *rc, bool bAll)
 #endif
 // Xlib Graphics wrapper class
 //-----------------------------------------------------------------------------++++
+// Load colors
+//Added 201311 -- integrate fully later...
+
+COLOR GetRGB(RConfigNode *n, const char *s)
+{
+	RString t,u;
+	RConfigNode *m;
+	u8 r,g,b;
+
+	m = n->GetNode(s);
+	if(!m) {
+		printf("Failed to find color -> %s\n",s);
+		return 0;
+	}
+
+	u = m->line;
+//	printf("GetRGB line -> %s\n",m->line);
+
+	t.Split(u,'=');
+	t.Split(u,',');
+	r = t;
+	t.Split(u,',');
+	g = t;
+	t.Split(u,',');
+	b = t;
+
+//	printf("GetRGB -> %i %i %i\n",r,g,b);
+
+	return rg.rgb(r,g,b);
+}
+
+void SetupColors(RConfigNode *n)
+{
+	if(!n) {
+		return;
+	}
+
+	rg.c3DFace		= GetRGB(n,"3DFace");
+	rg.c3DShadow	= GetRGB(n,"3DShadow");
+	rg.c3DDShadow	= GetRGB(n,"3DDkShadow");
+	rg.c3DLight		= GetRGB(n,"3DLight");
+	rg.c3DHilight	= GetRGB(n,"3DHilight");
+	rg.cBTNText		= GetRGB(n,"3DText");
+
+	rg.cHilight		= GetRGB(n,"Selected");
+	rg.cWindow		= GetRGB(n,"Window");
+	rg.cHilightText	= GetRGB(n,"SelectedText");
+	rg.cText		= GetRGB(n,"WindowText"); //??? MenuText ??
+
+/*
+	rg.c3DFace		= rgb(224,224,160);
+	rg.c3DShadow	= rgb(192,192,64);
+	rg.c3DDShadow	= 0;
+	rg.c3DLight		= rgb(224,224,160);
+	rg.c3DHilight	= rgb(240,240,208);
+
+	rg.cBTNText		= 0;
+	rg.cHilight		= rgb(128,128,0); //Selected
+	rg.cWindow		= rgb(240,244,200);
+	rg.cHilightText	= rgb(255,255,255);
+	rg.cText		= 0;
+*/
+}
+
+//-----------------------------------------------------------------------------++++
 // Drawing Manager
 
 void DrButton(RControl *rc, RGraphics *g, int left, int top, int right, int bottom, bool b)
@@ -558,11 +623,11 @@ void DrButton(RControl *rc, RGraphics *g, int left, int top, int right, int bott
 	{
 		cTopI = g->c3DDShadow;
 		cTopO = g->c3DShadow;
-		cBotI = g->rgb(214,214,156); //g->c3DLight;
+		cBotI = g->c3DLight; //201311 g->rgb(214,214,156); //g->c3DLight;
 		cBotO = g->c3DHilight;
 	}else{
 		cTopI = g->c3DHilight;
-		cTopO = g->rgb(214,214,156); //g->c3DLight;
+		cTopO = g->c3DLight; //201311 g->rgb(214,214,156); //g->c3DLight;
 		cBotI = g->c3DShadow;
 		cBotO = g->c3DDShadow;
 	}
@@ -767,7 +832,7 @@ void RdMenuButton::Draw(RControl *rc, RGraphics *g)
 //	g->SetTextColor(g->rgb(0,0,0),g->c3DFace);
 	g->TextOut(r->left+8,r->top+6,r->text,strlen(r->text));
 
-	DrFocus(r,g,r->left+5,r->top+5,r->right-5,r->bottom-4);
+//	DrFocus(r,g,r->left+5,r->top+5,r->right-5,r->bottom-4);
 	//-------------
 
 	if(r->pm) {
