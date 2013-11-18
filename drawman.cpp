@@ -786,7 +786,7 @@ void RdButton::Draw(RControl *rc, RGraphics *g)
 #endif	
 	DrFocus(r,g,r->left+5,r->top+5,r->right-5,r->bottom-4);
 
-	g->SetTextColor(r->IsHit() ? g->rgb(0,180,0):g->rgb(255,0,0),g->c3DFace);
+	g->SetTextColor(r->bDisabled ? g->cGrayText : r->IsHit() ? g->rgb(0,180,0):g->rgb(255,0,0),g->c3DFace);
 	g->TextOut(r->left+8,r->top+6,r->text,strlen(r->text));
 	
 	DrButton(r,g,r->bPushed);
@@ -806,7 +806,7 @@ void RdComboBox::Draw(RControl *rc, RGraphics *g)
 	g->FillRect(g->c3DFace,r->left,r->top,r->width,r->height);
 //	DrFocus(r,g,r->left+5,r->top+5,r->right-5,r->bottom-4);
 
-	g->SetTextColor(r->IsHit() ? g->rgb(0,180,0):g->rgb(255,0,0),g->c3DFace);
+	g->SetTextColor(r->bDisabled ? g->cGrayText : r->IsHit() ? g->rgb(0,180,0):g->rgb(255,0,0),g->c3DFace);
 	g->TextOut(r->left+8,r->top+6,r->text,strlen(r->text));
 
 	g->SetTextColor(g->rgb(0,0,0),g->c3DFace);
@@ -828,7 +828,7 @@ void RdLabel::Draw(RControl *rc, RGraphics *g)
 	RLabel *r = (RLabel*)rc;
 
 	g->FillRect(g->c3DFace,r->left,r->top,r->width,r->height);
-	g->SetTextColor(r->IsHit() ? g->rgb(0,180,0):g->rgb(0,0,0),g->c3DFace);
+	g->SetTextColor(r->bDisabled ? g->cGrayText : r->IsHit() ? g->rgb(0,180,0):g->rgb(0,0,0),g->c3DFace);
 	g->TextOut(r->left+8,r->top+2,r->text,strlen(r->text));
 }
 
@@ -850,6 +850,9 @@ void RdMenuButton::Draw(RControl *rc, RGraphics *g)
 	}else{
 		g->FillRect(g->c3DFace,r->left,r->top,r->width,r->height);
 		g->SetTextColor(g->cWinText,g->c3DFace);
+	}
+	if(r->bDisabled) {
+		g->SetTextColor(g->cGrayText,g->c3DFace);
 	}
 //	g->SetTextColor(g->rgb(0,0,0),g->c3DFace);
 	g->TextOut(r->left+8,r->top+6,r->text,strlen(r->text));
@@ -893,7 +896,7 @@ void RdCheckBox::Draw(RControl *rc, RGraphics *g)
 	int left = r->left + r->height + 2;
 	DrFocus(r,g,left+3,r->top+3,r->right-3,r->bottom-2);
 
-	g->SetTextColor(r->IsHit() ? g->rgb(0,180,0):g->rgb(255,0,0),g->c3DFace);
+	g->SetTextColor(r->bDisabled ? g->cGrayText : r->IsHit() ? g->rgb(0,180,0):g->rgb(255,0,0),g->c3DFace);
 	g->TextOut(left+6,r->top+6,r->text,strlen(r->text));
 }
 
@@ -932,7 +935,7 @@ void RdRadioButton::Draw(RControl *rc, RGraphics *g)
 	int left = r->left + r->height;
 	DrFocus(r,g,left+3,r->top+3,r->right-3,r->bottom-2);
 
-	g->SetTextColor(r->IsHit() ? g->rgb(0,180,0):g->rgb(255,0,0),g->c3DFace);
+	g->SetTextColor(r->bDisabled ? g->cGrayText : r->IsHit() ? g->rgb(0,180,0):g->rgb(255,0,0),g->c3DFace);
 	g->TextOut(left+6,r->top+6,r->text,strlen(r->text));
 }
 
@@ -954,7 +957,7 @@ void RdToggleButton::Draw(RControl *rc, RGraphics *g)
 #endif	
 	DrFocus(r,g,r->left+5,r->top+5,r->right-5,r->bottom-4);
 
-	g->SetTextColor(r->IsHit() ? g->rgb(0,180,0):g->rgb(255,0,0),g->c3DFace);
+	g->SetTextColor(r->bDisabled ? g->cGrayText : r->IsHit() ? g->rgb(0,180,0):g->rgb(255,0,0),g->c3DFace);
 	g->TextOut(r->left+8,r->top+6,r->text,strlen(r->text));
 	
 	DrButton(r,g,r->bChecked || r->bPushed);
@@ -1152,7 +1155,7 @@ void RdEditBox::Draw(RControl *rc, RGraphics *g)
 	REditBox *r = (REditBox*)rc;
 	g->FillRect(g->cWindow,r->left,r->top,r->width,r->height);
 
-	g->SetTextColor(r->IsHit() ? g->rgb(80,80,80):g->rgb(0,0,0),g->c3DFace);
+	g->SetTextColor(r->bDisabled ? g->cGrayText : r->IsHit() ? g->rgb(80,80,80):g->rgb(0,0,0),g->c3DFace);
 	g->TextOut(r->left+8,r->top+6,r->text,strlen(r->text));
 
 	//dbg g->Line(0,r->top+6,100,r->top+6);

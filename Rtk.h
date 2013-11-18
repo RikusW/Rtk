@@ -282,12 +282,15 @@ public:
 	SLOT(Sl_Show)();
 	SLOT(Sl_Hide)();
 
-	void EnableC();
-	void DisableC();
+
+	void EnableC(); //private
+	void DisableC(); //private
 	bool IsEnabled();
 	SLOT(Sl_Enable)(bool);
 	SLOT(Sl_Enable)();
 	SLOT(Sl_Disable)();
+	void Enable() { Sl_Enable(); };
+	void Disable() { Sl_Disable(); };
 
 	bool IsFocused();
 	SIGNAL(Si_Focus)(bool);
