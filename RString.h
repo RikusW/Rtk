@@ -29,17 +29,14 @@ public:
 	void Char(u32 i, char c);
 //	char operator[](int);
 
-	void LeftC(RString&, u32 l);
-	void LeftX(RString&, u32 l);
+	void CopyL(RString &src, u32 l);
+	void CopyR(RString &src, u32 l);
+	void CutL(RString &src, u32 l);
+	void CutR(RString &src, u32 l);
+	void Mid(RString &src, u32 r, u32 l);
 
-	void RightC(RString&, u32 l);
-	void RightX(RString&, u32 l);
-
-	void Mid(RString &s, u32 r, u32 l);
-	void Split(RString &s, char c);
-	void SplitR(RString &s, char c);
-	void RSplit(RString &s, char c);
-
+	void SplitL(RString &src, char c);
+	void SplitR(RString &src, char c);
 
 	void TrimL();
 	void TrimR();

@@ -80,12 +80,12 @@ RTreeNode *RTreeNode::GetNode(const char *c) //XXX
 	RString s(c),d,r,rr;
 
 	RTreeNode *t = child;
-	d.Split(s,'/');
+	d.SplitL(s,'/');
 	while(t) {
 		rr = t->line;
-		r.Split(rr,'=');
+		r.SplitL(rr,'=');
 		if(d == r) {
-			d.Split(s,'/');
+			d.SplitL(s,'/');
 			if(!d.l) {
 				break;
 			}

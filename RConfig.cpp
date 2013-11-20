@@ -14,10 +14,10 @@ void RConfigNode::GetBin(const char *n, u8 *buf, u32 sz)
 		return;
 	}
 	s = t->line;
-	z.Split(s,'=');
+	z.SplitL(s,'=');
 
 	while(s.l && sz) {
-		z.LeftX(s,2);
+		z.CutL(s,2);
 		*buf++ = z.FromHex();
 		sz--;
 	}
@@ -33,7 +33,7 @@ u32 RConfigNode::GetValue(const char *n, u32 df)
 		return df;
 	}
 	s = t->line;
-	z.Split(s,'=');
+	z.SplitL(s,'=');
 
 	return (u32)s;
 }
@@ -48,8 +48,8 @@ u32 RConfigNode::GetValue2(const char *n)
 		return 0;
 	}
 	s = t->line;
-	z.Split(s,'=');
-	z.Split(s,',');
+	z.SplitL(s,'=');
+	z.SplitL(s,',');
 
 	return (u32)s;
 }
@@ -213,7 +213,7 @@ void RDataCfg::Parse(int lvl)
 		case '{': Parse(lvl+1); continue;
 		case '}': return;
 		}
-		a.Split(b,'=');
+		a.SplitL(b,'=');
 
 		printf("x%s %s => %s <=\n",buf,a.GetStr(),b.GetStr());
 	}

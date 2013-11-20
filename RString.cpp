@@ -113,66 +113,66 @@ bool RString::Contains(const char *r)
 
 //---------------------------------------------------------
 
-void RString::LeftC(RString &s, u32 u)
+void RString::CopyL(RString &src, u32 u)
 {
-	if(u > s.l) {
-		u = s.l;
+	if(u > src.l) {
+		u = src.l;
 	}
 	l = u;
-	p = s.p;
+	p = src.p;
 	cow = 1;
-	s.cow = 1;
+	src.cow = 1;
 }
 
-void RString::LeftX(RString &s, u32 u)
+void RString::CopyR(RString &src, u32 u)
 {
-	if(u > s.l) {
-		u = s.l;
+	if(u > src.l) {
+		u = src.l;
 	}
 	l = u;
-	p = s.p;
+	p = src.p + (src.l - u);
 	cow = 1;
-
-	s.p += u;
-	s.l -= u;
-}
-
-//---------------------------------------------------------
-
-void RString::RightC(RString &s, u32 u)
-{
-	if(u > s.l) {
-		u = s.l;
-	}
-	l = u;
-	p = s.p + (s.l - u);
-	cow = 1;
-	s.cow = 1;
-}
-
-void RString::RightX(RString &s, u32 u)
-{
-	if(u > s.l) {
-		u = s.l;
-	}
-	l = u;
-	p = s.p + (s.l - u);
-	cow = 1;
-	s.l -= u;
+	src.cow = 1;
 }
 
 //---------------------------------------------------------
 
-void RString::Mid(RString &s, u32 r, u32 z)
+void RString::CutL(RString &src, u32 u)
 {
-	if(r > s.l) {
-		s = "";
+	if(u > src.l) {
+		u = src.l;
+	}
+	l = u;
+	p = src.p;
+	cow = 1;
+
+	src.p += u;
+	src.l -= u;
+}
+
+void RString::CutR(RString &src, u32 u)
+{
+	if(u > src.l) {
+		u = src.l;
+	}
+	l = u;
+	p = src.p + (src.l - u);
+	cow = 1;
+	src.l -= u;
+}
+
+//---------------------------------------------------------
+
+void RString::Mid(RString &src, u32 r, u32 z)
+{
+	if(r > src.l) {
+		src = "";
 		*this = "";
 		return;
 	}
 
-	l = s.l - r;
-	p = s.p + r;
+	l = src.l - r;
+	p = src.p + r;
 
 	if(l > z) {
 		l = z;
@@ -181,35 +181,21 @@ void RString::Mid(RString &s, u32 r, u32 z)
 
 //---------------------------------------------------------
 
-//Data is passed in from S, this is empty
-//left into this, right into s
-void RString::Split(RString &s, char c)
+void RString::SplitL(RString &src, char c)
 {
-	for(p = s.p, l = 0; s.l; s.l--, l++) { //return right
-		if(*s.p++ == c) {
-			s.l--;
+	for(p = src.p, l = 0; src.l; src.l--, l++) { //return right
+		if(*src.p++ == c) {
+			src.l--;
 			break;
 		}
 	}
 }
 
-//left into s, right into this
-void RString::SplitR(RString &s, char c)
+void RString::SplitR(RString &src, char c)
 {
-//	for(p = s.p, l = 0; s.l; s.l--, l++) { //return left
-//		if(*s.p++ == c) {
-//			s.l--;
-//			break;
-//		}
-//	}
-}
-
-
-void RString::RSplit(RString &s, char c)
-{
-	for(p = s.p + s.l, l = 0; s.l; p--, l++, s.l--) {
+	for(p = src.p + src.l, l = 0; src.l; p--, l++, src.l--) {
 		if(*(p-1) == c) {
-			s.l--;
+			src.l--;
 			break;
 		}
 	}

@@ -62,19 +62,19 @@ int RHexFile::Read(const char *name)
 		u8 line[270];
 		u32 address;
 
-		t.LeftX(s,1);
+		t.CutL(s,1);
 		if(t.Char(0) != ':') {
 			printf("Expected : at the start of the line\n");
 			return -2;
 		}
-		t.LeftX(s,2);
+		t.CutL(s,2);
 		u8 count = t.FromHex();
 		line[0] = count;
 		u8 checksum = count;
 		u8 cnt = count + 5;
 
 		for(u = 1; u < cnt; u++) { // count address2 type checksum
-			t.LeftX(s,2);
+			t.CutL(s,2);
 			line[u] = t.FromHex();
 			checksum += line[u];
 		}

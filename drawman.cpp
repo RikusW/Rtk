@@ -572,12 +572,12 @@ COLOR GetRGB(RConfigNode *n, const char *s)
 	u = m->line;
 //	printf("GetRGB line -> %s\n",m->line);
 
-	t.Split(u,'=');
-	t.Split(u,',');
+	t.SplitL(u,'=');
+	t.SplitL(u,',');
 	r = t;
-	t.Split(u,',');
+	t.SplitL(u,',');
 	g = t;
-	t.Split(u,',');
+	t.SplitL(u,',');
 	b = t;
 
 //	printf("GetRGB -> %i %i %i\n",r,g,b);

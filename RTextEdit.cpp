@@ -660,13 +660,13 @@ void RHexBox::GetBytes(u8 *p)
 {
 	RString s,t;
 	s = text;
-	t.Split(s,' ');
+	t.SplitL(s,' ');
 	p[0] = t.FromHex();
-	t.Split(s,' ');
+	t.SplitL(s,' ');
 	p[1] = t.FromHex();
-	t.Split(s,' ');
+	t.SplitL(s,' ');
 	p[2] = t.FromHex();
-	t.Split(s,' ');
+	t.SplitL(s,' ');
 	p[3] = t.FromHex();
 }
 
