@@ -64,9 +64,32 @@ void DrFocus(RControl *rc, RGraphics *g, int left, int top, int right, int botto
 	}
 }
 
-
 //-----------------------------------------------------------------------------++++
-// GDI Graphics wrapper class
+
+COLOR ColorAvg(COLOR c1, COLOR c2)
+{
+	u32 x1,x2,y1,y2,z1,z2;
+
+	x1 = c1 & 0xFF;
+	y1 = (c1 >> 8) & 0xFF;
+	z1 = (c1 >>16) & 0xFF;
+
+	x2 = c2 & 0xFF;
+	y2 = (c2 >> 8) & 0xFF;
+	z2 = (c2 >>16) & 0xFF;
+
+	x1 += x2;
+	y1 += y2;
+	z1 += z2;
+
+	x1 >>= 1;
+	y1 >>= 1;
+	z1 >>= 1;
+
+	c1 = (z1 << 16) | (y1 << 8) | x1;
+	return c1;
+}
+
 
 void DrawFrame(RControl *rc, RGraphics *g);
 RGraphics rg;
@@ -86,6 +109,9 @@ void RDrawer::GetMinSize(RControl *rc, int &x, int &y)
 	x = 20;
 	y = 20;
 }
+
+//-----------------------------------------------------------------------------++++
+// GDI Graphics wrapper class
 
 #ifdef WIN32
 
@@ -114,10 +140,11 @@ int RGraphics::Start(RWND wnd)
 void RGraphics::InitColor()
 {
 	c3DHilight	= GetSysColor(COLOR_3DHILIGHT);
-	c3DLight	= GetSysColor(COLOR_3DLIGHT);
+//	c3DLight	= GetSysColor(COLOR_3DLIGHT);
 	c3DFace		= GetSysColor(COLOR_3DFACE);
 	c3DDShadow	= GetSysColor(COLOR_3DDKSHADOW);
 	c3DShadow	= GetSysColor(COLOR_3DSHADOW);
+	c3DLight	= ColorAvg(c3DHilight,c3DFace);
 
 	c3DText		= GetSysColor(COLOR_BTNTEXT);
 	cGrayText	= GetSysColor(COLOR_GRAYTEXT);
@@ -400,10 +427,11 @@ int RGraphics::Start(Display *d, RWND w)
 void RGraphics::InitColor()
 {
 	c3DHilight	= rgb(240,240,208);
-	c3DLight	= rgb(224,224,160);
+//	c3DLight	= rgb(224,224,160);
 	c3DFace		= rgb(224,224,160);
 	c3DShadow	= rgb(192,192,64);
 	c3DDShadow	= 0;
+	c3DLight	= ColorAvg(c3DHilight,c3DFace);
 
 	c3DText		= 0;
 	cGrayText	= rgb(192,192,64);
@@ -637,10 +665,11 @@ void SetupColors(RConfigNode *n)
 	}
 
 	rg.c3DHilight	= GetRGB(n,"3DHilight");
-	rg.c3DLight		= GetRGB(n,"3DLight");
+//	rg.c3DLight		= GetRGB(n,"3DLight");
 	rg.c3DFace		= GetRGB(n,"3DFace");
 	rg.c3DShadow	= GetRGB(n,"3DShadow");
 	rg.c3DDShadow	= GetRGB(n,"3DDkShadow");
+	rg.c3DLight		= ColorAvg(rg.c3DHilight,rg.c3DFace);
 
 	rg.c3DText		= GetRGB(n,"3DText");
 	rg.cGrayText	= GetRGB(n,"GrayText");
