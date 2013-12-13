@@ -35,6 +35,8 @@ Rtk_sisl.cpp: Rtk.h window.h RTextEdit.h RListView.h RTreeView.h RMenu.h parse
 	./parse RMenu.h >> Rtk_sisl.cpp
 Rtk_sisl.o: Rtk_sisl.cpp
 drawman.o: drawman.h drawman.cpp
+dmRtk.o: drawman.h
+dmWin4.o: drawman.h
 RMenu.o: RMenu.h RMenu.cpp
 window.o: window.h window.cpp
 printxev.o: printxev.cpp
@@ -50,15 +52,15 @@ RString.o: RString.h RString.cpp
 
 #=========================================================#
 
-libRtk.a: sisl.o Rtk.o Rtk_sisl.o drawman.o RMenu.o window.o printxev.o\
+libRtk.a: sisl.o Rtk.o Rtk_sisl.o drawman.o dmRtk.o dmWin4.o RMenu.o window.o printxev.o\
 	RTextEdit.o RTreeNode.o RTreeView.o RListView.o RCom.o RFile.o RHexFile.o RConfig.o RString.o
 	rm -f libRtk.a
-	ar rs libRtk.a sisl.o Rtk.o Rtk_sisl.o drawman.o RMenu.o window.o printxev.o\
+	ar rs libRtk.a sisl.o Rtk.o Rtk_sisl.o drawman.o dmRtk.o dmWin4.o RMenu.o window.o printxev.o\
 		RTextEdit.o RTreeNode.o RTreeView.o RListView.o RCom.o RFile.o RHexFile.o RConfig.o RString.o
 
-libRtk.so: sisl.o Rtk.o Rtk_sisl.o drawman.o RMenu.o window.o printxev.o\
+libRtk.so: sisl.o Rtk.o Rtk_sisl.o drawman.o dmRtk.o dmWin4.o RMenu.o window.o printxev.o\
 	RTextEdit.o RTreeNode.o RTreeView.o RListView.o RCom.o RFile.o RHexFile.o RConfig.o RString.o
-	g++ -shared -fPIC -g -o libRtk.so sisl.o Rtk.o Rtk_sisl.o drawman.o RMenu.o window.o printxev.o\
+	g++ -shared -fPIC -g -o libRtk.so sisl.o Rtk.o Rtk_sisl.o drawman.o dmRtk.o dmWin4.o RMenu.o window.o printxev.o\
 		RTextEdit.o RTreeNode.o RTreeView.o RListView.o RCom.o RFile.o RHexFile.o RConfig.o RString.o\
 		-Wl,-soname -Wl,libRtk.so.0.1 -L/usr/X11R6/lib -lX11
 # -lefence
@@ -68,7 +70,7 @@ libRtk.so: sisl.o Rtk.o Rtk_sisl.o drawman.o RMenu.o window.o printxev.o\
 bz:
 	tar -cjvf ../Rtk.tbz ds97 *.h *.cpp Makefile RApps/*.h RApps/*.cpp RApps/Makefile
 wc:
-	wc parse.cpp *.h *.cpp
+	wc *.h *.cpp
 
 #=========================================================#
 

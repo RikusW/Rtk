@@ -645,8 +645,9 @@ public:
 	void MScroll(int b,int d);
 	void KDown(u32);
 
-	friend class RdScrollBar;
-protected:
+//	friend class RdScrollBar;
+//20131213 protected:
+
 	void AdjustP(int);
 	void AdjustL(int);
 	void SetL(int);

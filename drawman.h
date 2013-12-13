@@ -8,7 +8,25 @@
 
 #ifdef _RGRAPHICS_
 
+//XXX relocate ???
+void DrButton(RControl *rc, RGraphics *g, int left, int top, int right, int bottom, bool b);
+void DrButton(RControl *rc, RGraphics *g, bool b);
+void DrawFrame(RControl *rc, RGraphics *g);
+void DrFocus(RControl *rc, RGraphics *g, int left, int top, int right, int bottom);
+
+
+#ifdef WIN32
+#define NO_STRICT
+#include <windows.h>
+#endif
+
+
 #ifdef XLIB
+
+#include <X11/Xlib.h>
+#include <X11/Xutil.h>
+#include <X11/Xos.h>
+
 #define PS_SOLID LineSolid
 #define PS_DOT   LineOnOffDash
 typedef unsigned long COLOR;
@@ -71,52 +89,6 @@ public:
 };
 
 #endif // _RGRAPHICS_
-
-//-----------------------------------------------------------------------------++++
-/*
-class RDrawer
-{
-public:
-	RDrawer() { };
-	virtual ~RDrawer() {};
-	virtual void Draw(RControl *rc, RGraphics *g);
-	virtual void Draw(RControl *rc, bool bAll);
-	virtual void GetMinSize(RControl *rc, int &x, int &y);
-};*/
-
-#define RDRAWER(name) class name : public RDrawer { public: name () { }; \
-	void Draw(RControl *rc, RGraphics *g); \
-	void GetMinSize(RControl *rc, int &x, int &y); };
-#define RDRAWERX(name) class name : public RDrawer { public: name () { }; \
-	void Draw(RControl *rc, RGraphics *g); \
-	void GetMinSize(RControl *rc, int &x, int &y); 
-#define xx } // vim syntax color fix
-#undef xx
-
-// to be moved to appropriate headers (rtk.h, etc) ???
-RDRAWER(RdControl)
-RDRAWER(RdTBox)
-RDRAWER(RdWindow)
-RDRAWER(RdTabControl)
-
-RDRAWER(RdButton)
-RDRAWER(RdComboBox)
-RDRAWER(RdLabel)
-RDRAWER(RdMenuButton)
-RDRAWER(RdCheckBox)
-RDRAWER(RdRadioButton)
-RDRAWER(RdToggleButton)
-RDRAWER(RdTextEdit)
-RDRAWERX(RdTreeView)
-void DrawNode(RTreeView *tv,int x,int &y,RTreeNode *n, RGraphics *g); };
-RDRAWERX(RdListView)
-void DrawNode(RListView *lv,int x,int y,SListNode *n, RGraphics *g); };
-RDRAWER(RdToolTip)
-RDRAWER(RdEditBox)
-RDRAWER(RdRange)
-RDRAWER(RdScrollBar)
-RDRAWER(RdProgressBar)
-RDRAWER(RdStatusBar)
 
 //-----------------------------------------------------------------------------++++
 
