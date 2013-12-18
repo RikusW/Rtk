@@ -344,7 +344,7 @@ void RGraphics::DrawControl(RControl *rc, bool bAll)
 
 		rc->pDrawer->Draw(rc,this);
 	}
-	for(RControl *c = rc->GetChild(); c; c = c->next) {
+	for(RControl *c = rc->GetChild(); c; c = c->next) { //XXX remove from here ???
 		if(c->frame)
 			DrawFrame(c,this);
 	}
@@ -601,7 +601,7 @@ void RGraphics::DrawControl(RControl *rc, bool bAll)
 
 		rc->pDrawer->Draw(rc,this);
 	}
-	for(RControl *c = rc->GetChild(); c; c = c->next) {
+	for(RControl *c = rc->GetChild(); c; c = c->next) { //XXX remove from here ???
 		if(c->frame != F_NONE)
 			DrawFrame(c,this);
 	}
