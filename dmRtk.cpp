@@ -743,30 +743,10 @@ void RdRtkListView::GetMinSize(RControl *rc, int &x, int &y)
 // Drawing Manager
 //-----------------------------------------------------------------------------++++
 
-/*
-#define RBUTTON			1
-#define RMENUBUTTON		2
-#define RCONTROL		3
-#define RRANGE			4
-#define RCHECKBOX		5
-#define RRADIOBUTTON	6
-#define RTOGGLEBUTTON	7
-#define RTEXTEDIT		8
-#define RTABCONTROL		9
-#define RTREEVIEW		10
-#define RWINDOW			11
-#define RTOOLTIP		12
-#define RTBOX			13
-#define REDITBOX		14
-#define RCOMBOBOX		20
-*/
-
-
 RdRtkControl		rdRtkControl;
 RdRtkTBox			rdRtkTBox;
 RdRtkWindow			rdRtkWindow;
 RdRtkTabControl		rdRtkTabControl;
-
 RdRtkButton			rdRtkButton;
 RdRtkMenuButton		rdRtkMenuButton;
 RdRtkRange			rdRtkRange;
@@ -785,28 +765,29 @@ RdRtkListView		rdRtkListView;
 RdRtkComboBox		rdRtkComboBox;
 
 
-RDrawer *rdRtk [] =
+RDrawLink rdlRtk [] =
 {	
-	&rdRtkButton,
-	&rdRtkMenuButton,
-	&rdRtkControl,
-	&rdRtkRange,
-	&rdRtkCheckBox,
-	&rdRtkRadioButton,
-	&rdRtkToggleButton,
-	&rdRtkTextEdit,
-	&rdRtkTabControl,
-	&rdRtkTreeView,
-	&rdRtkWindow,
-	&rdRtkToolTip,
-	&rdRtkTBox,
-	&rdRtkEditBox,
-	&rdRtkScrollBar,
-	&rdRtkProgressBar,
-	&rdRtkStatusBar,
-	&rdRtkLabel,
-	&rdRtkListView,
-	&rdRtkComboBox,
+	{ &rdRtkButton, "RtkButton" },
+	{ &rdRtkMenuButton, "RtkMenuButton" },
+	{ &rdRtkControl, "RtkControl" },
+	{ &rdRtkRange, "RtkRange" },
+	{ &rdRtkCheckBox, "RtkCheckBox" },
+	{ &rdRtkRadioButton, "RtkRadioButton" },
+	{ &rdRtkToggleButton, "RtkToggleButton" },
+	{ &rdRtkTextEdit, "RtkTextEdit" },
+	{ &rdRtkTabControl, "RtkTabControl" },
+	{ &rdRtkTreeView, "RtkTreeView" },
+	{ &rdRtkWindow, "RtkWindow" },
+	{ &rdRtkToolTip, "RtkToolTip" },
+	{ &rdRtkTBox, "RtkTBox" },
+	{ &rdRtkEditBox, "RtkEditBox" },
+	{ &rdRtkScrollBar, "RtkScrollBar" },
+	{ &rdRtkProgressBar, "RtkProgressBar" },
+	{ &rdRtkStatusBar, "RtkStatusBar" },
+	{ &rdRtkLabel, "RtkLabel" },
+	{ &rdRtkListView, "RtkListView" },
+	{ &rdRtkComboBox, "RtkComboBox" },
+	{ 0, 0 }
 };
 
 //-----------------------------------------------------------------------------++++

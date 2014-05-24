@@ -743,30 +743,10 @@ void RdWin4ListView::GetMinSize(RControl *rc, int &x, int &y)
 // Drawing Manager
 //-----------------------------------------------------------------------------++++
 
-/*
-#define RBUTTON			1
-#define RMENUBUTTON		2
-#define RCONTROL		3
-#define RRANGE			4
-#define RCHECKBOX		5
-#define RRADIOBUTTON	6
-#define RTOGGLEBUTTON	7
-#define RTEXTEDIT		8
-#define RTABCONTROL		9
-#define RTREEVIEW		10
-#define RWINDOW			11
-#define RTOOLTIP		12
-#define RTBOX			13
-#define REDITBOX		14
-#define RCOMBOBOX		20
-*/
-
-
 RdWin4Control		rdWin4Control;
 RdWin4TBox			rdWin4TBox;
 RdWin4Window		rdWin4Window;
 RdWin4TabControl	rdWin4TabControl;
-
 RdWin4Button		rdWin4Button;
 RdWin4MenuButton	rdWin4MenuButton;
 RdWin4Range			rdWin4Range;
@@ -785,28 +765,29 @@ RdWin4ListView		rdWin4ListView;
 RdWin4ComboBox		rdWin4ComboBox;
 
 
-RDrawer *rdWin4 [] =
+RDrawLink rdlWin4 [] =
 {	
-	&rdWin4Button,
-	&rdWin4MenuButton,
-	&rdWin4Control,
-	&rdWin4Range,
-	&rdWin4CheckBox,
-	&rdWin4RadioButton,
-	&rdWin4ToggleButton,
-	&rdWin4TextEdit,
-	&rdWin4TabControl,
-	&rdWin4TreeView,
-	&rdWin4Window,
-	&rdWin4ToolTip,
-	&rdWin4TBox,
-	&rdWin4EditBox,
-	&rdWin4ScrollBar,
-	&rdWin4ProgressBar,
-	&rdWin4StatusBar,
-	&rdWin4Label,
-	&rdWin4ListView,
-	&rdWin4ComboBox,
+	{ &rdWin4Button, "RtkButton" },
+	{ &rdWin4MenuButton, "RtkMenuButton" },
+	{ &rdWin4Control, "RtkControl" },
+	{ &rdWin4Range, "RtkRange" },
+	{ &rdWin4CheckBox, "RtkCheckBox" },
+	{ &rdWin4RadioButton, "RtkRadioButton" },
+	{ &rdWin4ToggleButton, "RtkToggleButton" },
+	{ &rdWin4TextEdit, "RtkTextEdit" },
+	{ &rdWin4TabControl, "RtkTabControl" },
+	{ &rdWin4TreeView, "RtkTreeView" },
+	{ &rdWin4Window, "RtkWindow" },
+	{ &rdWin4ToolTip, "RtkToolTip" },
+	{ &rdWin4TBox, "RtkTBox" },
+	{ &rdWin4EditBox, "RtkEditBox" },
+	{ &rdWin4ScrollBar, "RtkScrollBar" },
+	{ &rdWin4ProgressBar, "RtkProgressBar" },
+	{ &rdWin4StatusBar, "RtkStatusBar" },
+	{ &rdWin4Label, "RtkLabel" },
+	{ &rdWin4ListView, "RtkListView" },
+	{ &rdWin4ComboBox, "RtkComboBox" },
+	{ 0, 0 }
 };
 
 //-----------------------------------------------------------------------------++++

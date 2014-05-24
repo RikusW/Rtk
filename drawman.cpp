@@ -708,20 +708,77 @@ void SetupColors(RConfigNode *n)
 */
 }
 
-
-extern RDrawer *rdRtk  [];
-extern RDrawer *rdWin4 [];
+//-----------------------------------------------------------------------------++++
+//Theme management
 
 RDrawer rdnull;
-//RDrawer **prd = rdRtk;
-RDrawer **prd = rdWin4;
+RDrawer *drawers[RDMAX];
 
-//XXX totally rewrite this with named lists instead
+extern RDrawLink rdlRtk[];
+extern RDrawLink rdlWin4[];
+
+//RDrawLink *rdl = rdlRtk; //XXX
+RDrawLink *rdl = rdlWin4; //XXX
+
+//---------------------------------------------------------
+
+void RdlLoad(u32 u, const char *name)
+{
+	RDrawer *d = &rdnull;
+	RDrawLink *l = rdl;
+
+	while(l->name) {
+		if(!strcmp(name, l->name)) {
+			d = l->drawer;
+			break;
+		}
+		l++;
+	}
+
+	drawers[u-1] = d;
+}
+
+//---------------------------------------------------------
+		
+bool rdlinit = 0; //XXX temp
+
+void RdlInit()
+{
+	rdlinit = 1;
+	RdlLoad( 1,"RtkButton");
+	RdlLoad( 2,"RtkMenuButton");
+	RdlLoad( 3,"RtkControl");
+	RdlLoad( 4,"RtkRange");
+	RdlLoad( 5,"RtkCheckBox");
+	RdlLoad( 6,"RtkRadioButton");
+	RdlLoad( 7,"RtkToggleButton");
+	RdlLoad( 8,"RtkTextEdit");
+	RdlLoad( 9,"RtkTabControl");
+	RdlLoad(10,"RtkTreeView");
+	RdlLoad(11,"RtkWindow");
+	RdlLoad(12,"RtkToolTip");
+	RdlLoad(13,"RtkTBox");
+	RdlLoad(14,"RtkEditBox");
+	RdlLoad(15,"RtkScrollBar");
+	RdlLoad(16,"RtkProgressBar");
+	RdlLoad(17,"RtkStatusBar");
+	RdlLoad(18,"RtkLabel");
+	RdlLoad(19,"RtkListView");
+	RdlLoad(20,"RtkComboBox");
+}
+
+//---------------------------------------------------------
+
 RDrawer *GetDrawer(u32 d)
 {
+	if(!rdlinit) { //XXX temp
+		RdlInit();
+	}
+
 	if(d && d <= RDMAX)
-		return prd[d-1];
+		return drawers[d-1];
 	return &rdnull;
 }
 
 //-----------------------------------------------------------------------------++++
+
