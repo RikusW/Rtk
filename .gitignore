@@ -3,5 +3,7 @@
 *.o
 *.so
 *.swp
+*.dep
+*_sisl.cpp
 parse
 
