@@ -585,8 +585,8 @@ int CfgFile::Parse(int CheckEof)
  * P2 If specified will override the #include of P1,
  *    can be "" in which case nothing is #included
  * P3 If specified will provide a second header #include,
- *    now either P2 or P3 can be "1" which will set it to P1.
  *    P2 Cannot be "" if P3 is specified.
+ *    If P2 == P3 only P2 will be used.
  */
 
 int main(int argc, char *argv[])
@@ -612,12 +612,15 @@ int main(int argc, char *argv[])
 	break;
 	case 3:
 		if(*argv[2]) {
-			printf("#include \"%s\"\n\n",argv[2]);
+c3:			printf("#include \"%s\"\n\n",argv[2]);
 		}
 	break;
 	case 4:
-		printf("#include \"%s\"\n"  ,*argv[2] == '1' ? argv[1] : argv[2]);
-		printf("#include \"%s\"\n\n",*argv[3] == '1' ? argv[1] : argv[3]);
+		if(!strcmp(argv[2], argv[3])) {
+			goto c3;
+		}
+		printf("#include \"%s\"\n"  ,argv[2]);
+		printf("#include \"%s\"\n\n",argv[3]);
 	break;
 	default:
 		printf("#error parse: Too many parameters\n");
@@ -629,26 +632,5 @@ int main(int argc, char *argv[])
 	f.Close();
 	return 0;
 }
-
-
-
-
-
-
-
-/*
-int CfgFile::CopyTo(char **f,char **t)
-{
-	if(*f == *t) return;
-
-	//remove all spaces except for one
-	while(**f==' ' || **f=='\t')
-		if(*((*f)+1)==' ' || *((*f)+1)=='\t') (*f)++;
-
-	while(*f < LineEnd && **f) *(*t)++=*(*f)++;
-	**t=0;
-}
-
-*/
 
 
