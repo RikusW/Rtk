@@ -303,7 +303,7 @@ int RFile::Seek64(u64 offs, u32 wh)
  */
 int RFile::Read(void *buf, u32 cnt)
 {
-	return read(fd,buf,cnt); // ret # of bytes or -1
+	return read(fd,buf,cnt); // ret # of bytes or -1   TODO partial read ?
 }
 
 /**

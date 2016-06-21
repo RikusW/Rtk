@@ -165,6 +165,7 @@ bool RCom::CanRead(int to)
 int RCom::Read(unsigned char *buf, int cnt)
 {
 #ifdef BROKEN_LINUX_READ
+	//Not broken... ?? read can be partial...
 	int to = timeout;
 	int i,r,o;
 	for(i = cnt, o = 0; i > 0 && to;  i -= r, o += r, to--) {
@@ -176,7 +177,7 @@ int RCom::Read(unsigned char *buf, int cnt)
 	}
 	return o;
 #else	
-	return read(hCom,buf,cnt);
+	return read(hCom,buf,cnt); //TODO partial read
 #endif	
 }
 int RCom::Write(unsigned char *buf, int cnt)
