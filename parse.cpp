@@ -84,7 +84,10 @@ CfgFile::~CfgFile()
 
 int CfgFile::Close()
 {
-    if(pmem) free(pmem); pmem=0;
+    if(pmem) {
+        free(pmem);
+    }
+    pmem=0;
     return 1;
 }
 

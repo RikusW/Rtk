@@ -318,7 +318,11 @@ void RTextEdit::KDown(u32 d)
 		}
 		break;
 
-	case RK_RETURN: st->Split(kx); kx = kxx = 0; Si_AdjustY(LineCount() - 1, -1);
+	case RK_RETURN:
+		st->Split(kx);
+		kx = kxx = 0;
+		Si_AdjustY(LineCount() - 1, -1);
+		//fallthrough
 	case RK_DOWN:
 		if(!st->next)
 			break;
@@ -623,6 +627,7 @@ void RHexBox::KChar(u32 d)
 	case 5:
 	case 8:
 		text[kx++] = ' ';
+		//fallthrough
 	case 0:
 	case 1:
 	case 3:

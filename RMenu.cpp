@@ -157,9 +157,15 @@ void RMenuButton::KUp(u32 d)
 	case RK_DOWN: if(next) next->Sl_Focus(); break;
 	case RK_RIGHT: Popup(); break;
 	case RK_LEFT: if(wnd->parentw) wnd->parentw->SetFocusW(); break; //wnd->Close(); break;
-	case RK_SPACE: Sl_Clicked(); if(pm) Popup(); else
-							// wnd->RTKMsg(RTKMSG_DESTROY_POPUP); break;
-							wnd->UnfocusPopups(); break;
+	case RK_SPACE:
+		Sl_Clicked();
+		if(pm) {
+			Popup();
+		} else {
+			// wnd->RTKMsg(RTKMSG_DESTROY_POPUP);
+			wnd->UnfocusPopups();
+		}
+		break;
 	}
 }
 

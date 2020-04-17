@@ -149,6 +149,7 @@ void RTreeView::MButton(u32 b)
 			Si_Selected(sel);
 			break;
 		}
+		//fallthrough
 	case 3:
 		s->GetChild();
 		s->bExpand =! s->bExpand;

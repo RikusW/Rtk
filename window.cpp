@@ -1050,11 +1050,15 @@ void RMainWindow::Run()
 		case ButtonPress:
 			if(xev.xbutton.button <= 3)
 				wFocus = xev.xbutton.window;
+			RtkXTime = xev.xbutton.time; // used by XSetInputFocus
+			break;
 		case ButtonRelease:
 			RtkXTime = xev.xbutton.time; // used by XSetInputFocus
 			break;
 		case KeyRelease: // I don't want KeyRelease while repeating
 			XCheckTypedWindowEvent(rdisplay, xev.xany.window, KeyPress, &xev); 
+			RtkXTime = xev.xkey.time;
+			break;
 		case KeyPress:
 			RtkXTime = xev.xkey.time;
 			break;
