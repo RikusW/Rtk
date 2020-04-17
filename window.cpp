@@ -533,6 +533,7 @@ void RWindow::RTKMsg(u32 id, void *p1)
 	c.format = 32;
 	c.data.l[0] = id;
 	c.data.l[1] = (uptr)p1;
+	c.data.l[2] = ((uptr)p1) >> 32;
 	XSendEvent(rdisplay,hwnd,0,0,(XEvent*)&c);
 }
 
@@ -902,7 +903,10 @@ u32 RWindow::RWndProc(void *pv)
 	case ClientMessage:
 	//-----------------------------------------------------------
 	if(xev->xclient.message_type == RTK_MSG) {
-		RTKMsgH(xev->xclient.data.l[0],(void*)xev->xclient.data.l[1]);
+		uptr u = xev->xclient.data.l[2];
+		u <<= 32;
+		u |= xev->xclient.data.l[1];
+		RTKMsgH(xev->xclient.data.l[0],(void*)u);
 		break;
 	}
 	//-----------------------------------------------------------
