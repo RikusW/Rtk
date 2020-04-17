@@ -488,7 +488,7 @@ int CfgFile::ParseClass()
 {
 	iSi = iSl = 0;
 
-	char *c,*p,*g; // child parent generation
+	char *c, *p, *g = 0; // child parent generation
 	char *sisl,*params,*t;
 	int blevel=0;
 
@@ -592,13 +592,13 @@ int CfgFile::Parse(int CheckEof)
 int main(int argc, char *argv[])
 {
 	if(argc < 2) {
-		printf("#error parse: Specify a input file\n");
+		fprintf(stderr, "#error parse: Specify a input file\n");
 		return 1;
 	}
 
 	CfgFile f;
 	if(!f.Open(argv[1])) {
-		printf("#error parse: Open %s fail\n",argv[1]);
+		fprintf(stderr, "#error parse: Open %s fail\n",argv[1]);
 		return 1;
 	}
 
@@ -623,7 +623,7 @@ c3:			printf("#include \"%s\"\n\n",argv[2]);
 		printf("#include \"%s\"\n\n",argv[3]);
 	break;
 	default:
-		printf("#error parse: Too many parameters\n");
+		fprintf(stderr, "#error parse: Too many parameters\n");
 		f.Close();
 		return 1;
 	}
