@@ -6,7 +6,7 @@
 class SListNode
 {
 public:
-	SListNode(SListNode *p, char *cc = "ABC");
+	SListNode(SListNode *p, const char *cc = "ABC");
 	~SListNode();
 	int Count();
 	SListNode *GetNode(int);

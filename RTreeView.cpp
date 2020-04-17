@@ -26,7 +26,7 @@ void ListDirX(RTreeNode *t, const char *n, int in)
 		if(i & RD_DDOT || !(i & RD_DIR)) {
 			continue;
 		}
-		RTreeNode *n = new RTreeNodeDir(t,(char*)cc);
+		RTreeNode *n = new RTreeNodeDir(t, cc);
 		n->bExpand = false;
 		
 		if(in) {

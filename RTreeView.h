@@ -9,7 +9,7 @@
 class RTreeNodeDir : public RTreeNode
 {
 public:
-	RTreeNodeDir(RTreeNode *p, char *cc = "ABC") : RTreeNode(p,cc) { bInit = false; };
+	RTreeNodeDir(RTreeNode *p, const char *cc = "ABC") : RTreeNode(p,cc) { bInit = false; };
 	~RTreeNodeDir() {};
 
 	RTreeNode *GetChild();

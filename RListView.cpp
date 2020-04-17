@@ -5,7 +5,7 @@
 
 //---------------------------------------------------------------------------------------
 
-SListNode::SListNode(SListNode *p, char *cc)
+SListNode::SListNode(SListNode *p, const char *cc)
 {
 	*line = 0;
 	next = NULL;
