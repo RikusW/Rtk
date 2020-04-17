@@ -12,7 +12,7 @@
 class RCom
 {
 public:
-	RCom() { hCom = 0; timeout = 1000; };
+	RCom() { hCom = 0; timeout = 20; };
 	~RCom() { Close(); };
 
 	int Open(const char *p);

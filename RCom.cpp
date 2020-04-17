@@ -6,10 +6,6 @@
 #ifndef WIN32
 // LINUX XXX!!!
 
-//used for older 2.6 kernels
-//#define BROKEN_LINUX_READ
-
-
 #include "RCom.h"
 
 #include <stdio.h>
@@ -55,8 +51,6 @@ int RCom::Close()
 
 void RCom::SetTimeout(int to)
 {
-	printf("attempting to RCom::SetTimeout( %i );\n",to);
-	to = 1000; //XXX
 	if(hCom) {
 		struct termios tty;
 		tcgetattr(hCom, &tty);
@@ -164,26 +158,20 @@ bool RCom::CanRead(int to)
 
 int RCom::Read(unsigned char *buf, int cnt)
 {
-#ifdef BROKEN_LINUX_READ
-	//Not broken... ?? read can be partial...
-	int to = timeout;
-	int i,r,o;
-	for(i = cnt, o = 0; i > 0 && to;  i -= r, o += r, to--) {
-		if(CanRead(100)) {
-			r = read(hCom,buf+o,i);
-		}else{
-			return o;
-		}
+	int r,o;
+	for(o = 0; cnt > 0; cnt -= r, o += r) {
+		r = read(hCom, buf + o, cnt);
 	}
 	return o;
-#else	
-	return read(hCom,buf,cnt); //TODO partial read
-#endif	
 }
+
 int RCom::Write(unsigned char *buf, int cnt)
 {
-	int i = write(hCom,buf,cnt);
-	return i;
+	int r,o;
+	for(o = 0; cnt > 0; cnt -= r, o += r) {
+		r = write(hCom, buf + o, cnt);
+	}
+	return o;
 }
 
 int RCom::SetLines(int f)
@@ -363,8 +351,6 @@ int RCom::SetBaudRate(const char *p)
 		printf("SetCommState fail\n");
 		return false;
 	}
-
-	EscapeCommFunction(hCom,SETDTR); //XXX
 
 	return 1;
 };
