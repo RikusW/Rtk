@@ -2,7 +2,7 @@
 # Install XCode and XQuartz on OSX to compile this
 #
 
-CXXFLAGS = -DXLIB -fPIC -DPIC -g -Wall -Wextra -Wno-unused-parameter -I../Rtk-base
+CXXFLAGS = -DXLIB -fPIC -DPIC -g -Wall -Wextra -Wno-unused-parameter -I../
 
 lib-objs := sisl.o Rtk.o Rtk_sisl.o drawman.o dmRtk.o dmWin4.o RMenu.o RMenu_sisl.o window.o window_sisl.o printxev.o\
 		RTextEdit.o RTextEdit_sisl.o RTreeView.o RTreeView_sisl.o RListView.o RListView_sisl.o

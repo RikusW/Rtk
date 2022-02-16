@@ -5,7 +5,7 @@
 #include "RTextEdit.h"
 #include "RTreeView.h"
 
-#include "RString.h"
+#include "Rtk-base/RString.h"
 
 //-----------------------------------------------------------------------------
 

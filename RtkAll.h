@@ -5,16 +5,16 @@
 
 #include "Rtk.h"
 
-#include "RString.h"
+#include "Rtk-base/RString.h"
 #include "RMenu.h"
 #include "RMenu.h"
 #include "RListView.h"
 #include "RTreeView.h"
 #include "RTextEdit.h"
 
-#include "RCom.h"
-#include "RFile.h"
-#include "RConfig.h"
-#include "RHexFile.h"
+#include "Rtk-base/RCom.h"
+#include "Rtk-base/RFile.h"
+#include "Rtk-base/RConfig.h"
+#include "Rtk-base/RHexFile.h"
 
 #endif //RTKALL_H

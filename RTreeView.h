@@ -4,7 +4,7 @@
 #define TREEVIEW_H
 
 #include "Rtk.h"
-#include "RTreeNode.h"
+#include "Rtk-base/RTreeNode.h"
 
 class RTreeNodeDir : public RTreeNode
 {
