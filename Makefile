@@ -8,7 +8,7 @@ lib-objs := sisl.o Rtk.o Rtk_sisl.o drawman.o dmRtk.o dmWin4.o RMenu.o RMenu_sis
 		RTextEdit.o RTextEdit_sisl.o RTreeView.o RTreeView_sisl.o RListView.o RListView_sisl.o
 
 #all: libRtk.a
-all: libRtk.so
+all: libRtk-gui.so
 
 clean:
 	rm -fv *~
@@ -42,23 +42,23 @@ parse: parse.cpp
 
 #=========================================================#
 
-libRtk.a: $(lib-objs)
-	rm -f libRtk.a
-	ar rs libRtk.a $^
+libRtk-gui.a: $(lib-objs)
+	rm -f $@
+	ar rs $@ $^
 
-libRtk.so: $(lib-objs)
-	g++ -shared -fPIC -g -o libRtk.so $^ -Wl,-soname -Wl,libRtk.so.0.1 -L/usr/X11R6/lib -lX11 -lRtk-base
+libRtk-gui.so: $(lib-objs)
+	g++ -shared -fPIC -g -o $@ $^ -Wl,-soname -Wl,$@.0.1 -L/usr/X11R6/lib -lX11 -lRtk-base
 # -lefence
 
 linkso:
-	ln -s `pwd`/libRtk.so /usr/lib/libRtk.so
-	ln -s `pwd`/libRtk.so /usr/lib/libRtk.so.1
-	ln -s `pwd`/libRtk.so /usr/lib/libRtk.so.0.1
+	ln -s `pwd`/libRtk-gui.so /usr/lib/libRtk-gui.so
+	ln -s `pwd`/libRtk-gui.so /usr/lib/libRtk-gui.so.1
+	ln -s `pwd`/libRtk-gui.so /usr/lib/libRtk-gui.so.0.1
 
 rmlinkso:
-	rm /usr/lib/libRtk.so
-	rm /usr/lib/libRtk.so.1
-	rm /usr/lib/libRtk.so.0.1
+	rm /usr/lib/libRtk-gui.so
+	rm /usr/lib/libRtk-gui.so.1
+	rm /usr/lib/libRtk-gui.so.0.1
 
 #=========================================================#
 
