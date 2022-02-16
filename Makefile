@@ -2,10 +2,10 @@
 # Install XCode and XQuartz on OSX to compile this
 #
 
-CXXFLAGS = -DXLIB -fPIC -DPIC -g -Wall -Wextra -Wno-unused-parameter
+CXXFLAGS = -DXLIB -fPIC -DPIC -g -Wall -Wextra -Wno-unused-parameter -I../Rtk-base
 
 lib-objs := sisl.o Rtk.o Rtk_sisl.o drawman.o dmRtk.o dmWin4.o RMenu.o RMenu_sisl.o window.o window_sisl.o printxev.o\
-		RTextEdit.o RTextEdit_sisl.o RTreeNode.o RTreeView.o RTreeView_sisl.o RListView.o RListView_sisl.o RCom.o RFile.o RHexFile.o RConfig.o RString.o
+		RTextEdit.o RTextEdit_sisl.o RTreeView.o RTreeView_sisl.o RListView.o RListView_sisl.o
 
 #all: libRtk.a
 all: libRtk.so
@@ -47,7 +47,7 @@ libRtk.a: $(lib-objs)
 	ar rs libRtk.a $^
 
 libRtk.so: $(lib-objs)
-	g++ -shared -fPIC -g -o libRtk.so $^ -Wl,-soname -Wl,libRtk.so.0.1 -L/usr/X11R6/lib -lX11
+	g++ -shared -fPIC -g -o libRtk.so $^ -Wl,-soname -Wl,libRtk.so.0.1 -L/usr/X11R6/lib -lX11 -lRtk-base
 # -lefence
 
 linkso:
