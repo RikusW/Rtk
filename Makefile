@@ -16,19 +16,19 @@ clean:
 	rm -fv *.a
 	rm -fv *.so
 	rm -fv *.dep
-	rm -fv parse
+	rm -fv Rtk-parse
 	rm -fv *_sisl.cpp
 
 #=========================================================#
 #Rules
 
-#Keep parse output
+#Keep Rtk-parse output
 .PRECIOUS: %_sisl.cpp
 
-parse: parse.cpp
+Rtk-parse: Rtk-parse.cpp
 
-%_sisl.cpp: %.h parse
-	./parse $< Rtk.h $< > $@
+%_sisl.cpp: %.h Rtk-parse
+	./Rtk-parse $< Rtk.h $< > $@
 
 #=========================================================#
 #dependencies
