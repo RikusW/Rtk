@@ -4,6 +4,8 @@
 #ifndef WINDOW_H
 #define WINDOW_H
 
+#include "Rtk.h"
+
 // RTKMsg magic
 #define RTKMSG_MAGIC			0x5AB30000
 #define RTKMSG_MAGIC_MASK		0xFFFF0000
@@ -237,5 +239,13 @@ public:
 #ifdef XLIB
 #define RMain() main()
 #endif
+
+//XXX circular dependency hack...
+inline int RControl::GetMX() { return wnd->mx - left; };
+inline int RControl::GetMY() { return wnd->my - top; };
+inline int RControl::GetMOX() { return wnd->ox - left; };
+inline int RControl::GetMOY() { return wnd->oy - top; };
+inline int RControl::GetMRX() { return wnd->rx; };
+inline int RControl::GetMRY() { return wnd->ry; };
 
 #endif //WINDOW_H

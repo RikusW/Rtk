@@ -3,6 +3,8 @@
 #ifndef LISTVIEW_H
 #define LISTVIEW_H
 
+#include "Rtk.h"
+
 class SListNode
 {
 public:

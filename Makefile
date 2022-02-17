@@ -28,7 +28,7 @@ clean:
 Rtk-parse: Rtk-parse.cpp
 
 %_sisl.cpp: %.h Rtk-parse
-	./Rtk-parse $< Rtk.h $< > $@
+	./Rtk-parse $< > $@
 
 #=========================================================#
 #dependencies

@@ -613,6 +613,7 @@ int main(int argc, char *argv[])
 	case 2:
 		printf("#include \"%s\"\n\n",argv[1]);
 	break;
+	/* deprecated
 	case 3:
 		if(*argv[2]) {
 c3:			printf("#include \"%s\"\n\n",argv[2]);
@@ -625,6 +626,7 @@ c3:			printf("#include \"%s\"\n\n",argv[2]);
 		printf("#include \"%s\"\n"  ,argv[2]);
 		printf("#include \"%s\"\n\n",argv[3]);
 	break;
+	*/
 	default:
 		fprintf(stderr, "#error parse: Too many parameters\n");
 		f.Close();

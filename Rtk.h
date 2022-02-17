@@ -691,12 +691,5 @@ public:
 
 #include "window.h"
 
-inline int RControl::GetMX() { return wnd->mx - left; };
-inline int RControl::GetMY() { return wnd->my - top; };
-inline int RControl::GetMOX() { return wnd->ox - left; };
-inline int RControl::GetMOY() { return wnd->oy - top; };
-inline int RControl::GetMRX() { return wnd->rx; };
-inline int RControl::GetMRY() { return wnd->ry; };
-
 #endif //RTK_H
 

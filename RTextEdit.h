@@ -3,6 +3,8 @@
 #ifndef TEXTEDIT_H
 #define TEXTEDIT_H
 
+#include "Rtk.h"
+
 class STextLine
 {
 public:
