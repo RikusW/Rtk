@@ -51,11 +51,13 @@ libRtk-gui.so: $(lib-objs)
 # -lefence
 
 linkso:
+	ln -s `pwd`/Rtk-parse /usr/bin/Rtk-parse
 	ln -s `pwd`/libRtk-gui.so /usr/lib/libRtk-gui.so
 	ln -s `pwd`/libRtk-gui.so /usr/lib/libRtk-gui.so.1
 	ln -s `pwd`/libRtk-gui.so /usr/lib/libRtk-gui.so.0.1
 
 rmlinkso:
+	rm /usr/bin/Rtk-parse
 	rm /usr/lib/libRtk-gui.so
 	rm /usr/lib/libRtk-gui.so.1
 	rm /usr/lib/libRtk-gui.so.0.1
