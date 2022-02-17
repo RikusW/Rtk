@@ -1,10 +1,7 @@
 // vim:ts=4 sts=0 sw=4
 
-#include "Rtk.h"
-#include "RMenu.h"
 #include "RTextEdit.h"
-#include "RTreeView.h"
-
+#include "RMenu.h"
 #include "Rtk-base/RString.h"
 
 //-----------------------------------------------------------------------------
@@ -46,8 +43,6 @@ void RTextEdit::MMove()
 		Draw();
 	}
 }
-
-//extern STreeNode *textpopup; //XXX TEMP!!!!
 
 void RTextEdit::MButton(u32 b)
 {
