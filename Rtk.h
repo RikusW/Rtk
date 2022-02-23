@@ -689,7 +689,7 @@ public:
 // Controls
 //-----------------------------------------------------------------------------++++
 
-#include "window.h"
+#include "RWindow.h"
 
 #endif //RTK_H
 
