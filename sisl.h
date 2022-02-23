@@ -3,7 +3,7 @@
 #ifndef SISL_H
 #define SISL_H
 
-#include "Rtk-base/rtypes.h"
+#include "Rtk-base/RTypes.h"
 
 typedef const char cchar;
 typedef void * UPTR; // user value
