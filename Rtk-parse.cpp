@@ -613,12 +613,13 @@ int main(int argc, char *argv[])
 	case 2:
 		printf("#include \"%s\"\n\n",argv[1]);
 	break;
-	/* deprecated
 	case 3:
 		if(*argv[2]) {
-c3:			printf("#include \"%s\"\n\n",argv[2]);
+//c3:
+			printf("#include \"%s\"\n\n",argv[2]);
 		}
 	break;
+	/* deprecated
 	case 4:
 		if(!strcmp(argv[2], argv[3])) {
 			goto c3;
